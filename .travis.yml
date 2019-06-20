@@ -1,0 +1,18 @@
+language: go
+
+go:
+- "1.12"
+
+jobs:
+  include:
+  - env:
+    - GO111MODULE=on
+    - ENV=test
+
+    # Default tests
+    name: Tests
+    script:
+    - go test -v ./...
+
+notifications:
+  email: false
