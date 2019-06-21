@@ -17,7 +17,6 @@ Create a new error. It uses [pkg/errors](https://github.com/pkg/errors) for the
 actual error.
 
 ```go
-
 err := errors.New("an error message")
 ```
 
@@ -67,8 +66,8 @@ You can use `errors.WithDisplayMessage` to assign a display message to a given
 error.
 
 ```go
-  err := errors.New("internal message")
-  err = errors.WithDisplayMessage(err, "Display message goes here!")
+err := errors.New("internal message")
+err = errors.WithDisplayMessage(err, "Display message goes here!")
 ```
 
 ### Retrieving display messages
@@ -78,19 +77,19 @@ You can retrieve a display message by using `errors.DisplayMessage`.
 If no message were assigned, it would use the error code string.
 
 ```go
-  err := errors.New("internal message")
-  err = errors.WithDisplayMessage(err, "Display message goes here!")
-  errors.DisplayMessage(err) // -> Display message goes here!
+err := errors.New("internal message")
+err = errors.WithDisplayMessage(err, "Display message goes here!")
+errors.DisplayMessage(err) // -> Display message goes here!
 ```
 
 ```go
-  err := errors.New("an error")
-  errors.DisplayMessage(err) // -> Internal Error
+err := errors.New("an error")
+errors.DisplayMessage(err) // -> Internal Error
 ```
 
 ```go
-  err := errors.NotFound.New("an error")
-  errors.DisplayMessage(err) // -> Not Found
+err := errors.NotFound.New("an error")
+errors.DisplayMessage(err) // -> Not Found
 ```
 
 ### Retrieving the cause of an error
