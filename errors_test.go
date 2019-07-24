@@ -133,4 +133,10 @@ var _ = Describe("Errors", func() {
 		Expect(errors.Code(err)).To(Equal(errors.NotFound))
 		Expect(errors.DisplayMessage(err)).To(Equal("The record was not found"))
 	})
+
+	It("can get stack trace of non go-error error", func() {
+		err := io.EOF
+
+		Expect(fmt.Sprintf("%+v", errors.StackTrace(err))).To(ContainSubstring("/errors_test.go:"))
+	})
 })

@@ -137,5 +137,10 @@ func StackTrace(err error) errors.StackTrace {
 		return StackTrace(custom.originalError)
 	}
 
+	_, ok = err.(stackTracer)
+	if !ok {
+		err = errors.WithStack(err)
+	}
+
 	return err.(stackTracer).StackTrace()[1:]
 }
