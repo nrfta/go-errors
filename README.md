@@ -1,4 +1,4 @@
-# go-errors [![Build Status](https://travis-ci.com/neighborly/go-errors.svg?branch=master)](https://travis-ci.com/neighborly/go-errors)
+# go-errors ![](https://github.com/neighborly/go-errors/workflows/CI/badge.svg)
 
 Error handling for Go. It uses [pkg/errors](https://github.com/pkg/errors)
 under the hood.
