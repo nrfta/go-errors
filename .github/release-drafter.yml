@@ -3,32 +3,36 @@
 name-template: v$NEXT_MINOR_VERSION
 tag-template: v$NEXT_MINOR_VERSION
 categories:
-  - title: ":zap: New Feature"
-    label: "Type: Feature"
+  - title: ':boom: Breaking Change'
+    label: 'Type: Breaking Change'
 
-  - title: ":rocket: Enhancement"
-    label: "Type: Enhancement"
+  - title: ':rocket: Enhancement'
+    label: 'Type: Enhancement'
 
-  - title: ":bug: Bug Fix"
-    label: "Type: Bug"
+  - title: ':bug: Bug Fix'
+    label: 'Type: Bug'
 
-  - title: ":memo: Documentation"
-    label: "Type: Documentation"
+  - title: ':nail_care: Refactor'
+    label: 'Type: Refactor'
 
-  - title: ":house: Internal"
-    label: "Type: Internal"
+  - title: ':memo: Documentation'
+    label: 'Type: Documentation'
 
-  - title: ":wrench: Tooling"
-    label: "Type: Tooling"
+  - title: ':house: Internal'
+    label: 'Type: Internal'
 
-  - title: ":package: Dependencies"
-    label: "Type: Dependencies"
+  - title: ':wrench: Tooling'
+    label: 'Type: Tooling'
+
+  - title: ':package: Dependencies'
+    label: 'Type: Dependencies'
 
 change-template: '- $TITLE (#$NUMBER) @$AUTHOR'
 no-changes-template: '- No changes'
 template: |
   $CHANGES
   ***
+
   ### Contributors
 
   $CONTRIBUTORS
