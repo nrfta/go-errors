@@ -6,7 +6,7 @@ under the hood.
 ## Installation
 
 ```sh
-go get github.com/neighborly/go-errors
+go get github.com/nrfta/go-errors
 ```
 
 ## Usage
