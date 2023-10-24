@@ -6,6 +6,8 @@ package errors
 import "errors"
 
 var (
-	Is = errors.Is
-	As = errors.As
+	Is     = errors.Is
+	As     = errors.As
+	Join   = errors.Join
+	Unwrap = errors.Unwrap
 )
