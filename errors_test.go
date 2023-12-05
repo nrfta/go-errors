@@ -142,7 +142,7 @@ var _ = Describe("Errors", func() {
 
 	Describe("#Code", func() {
 		It("should return a wrapped error code", func() {
-			err := errors.Join(fmt.Errorf("test"), errors.InvalidArgument.New("invalid argument"))
+			err := fmt.Errorf("testing: %w", errors.InvalidArgument.New("invalid argument"))
 			Expect(errors.Code(err)).To(Equal(errors.InvalidArgument))
 		})
 	})
