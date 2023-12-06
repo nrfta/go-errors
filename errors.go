@@ -60,7 +60,9 @@ func Newf(msg string, args ...interface{}) error {
 // Wrapf an error with format string
 func Wrapf(err error, msg string, args ...interface{}) error {
 	wrappedError := errors.Wrapf(err, msg, args...)
-	if customErr, ok := err.(customError); ok {
+
+	var customErr customError
+	if errors.As(err, &customErr) {
 		return customError{
 			code:          customErr.code,
 			originalError: wrappedError,
@@ -77,7 +79,8 @@ func Wrap(err error, msg string) error {
 
 // WithDisplayMessage returns a error containing a display message
 func WithDisplayMessage(err error, msg string) error {
-	if customErr, ok := err.(customError); ok {
+	var customErr customError
+	if errors.As(err, &customErr) {
 		return customError{
 			code:           customErr.code,
 			originalError:  err,
@@ -90,7 +93,8 @@ func WithDisplayMessage(err error, msg string) error {
 
 // Code retrives the error code from an error, defaults to InternalError
 func Code(err error) ErrorCode {
-	if customErr, ok := err.(customError); ok {
+	var customErr customError
+	if errors.As(err, &customErr) {
 		return customErr.code
 	}
 
@@ -100,9 +104,9 @@ func Code(err error) ErrorCode {
 // Cause retrives the original error
 // Note that it will return the error created internally from github.com/pkg/errors
 func Cause(err error) error {
-	custom, ok := err.(customError)
-	if ok {
-		return Cause(errors.Cause(custom.originalError))
+	var customErr customError
+	if errors.As(err, &customErr) {
+		return Cause(errors.Cause(customErr.originalError))
 	}
 
 	return errors.Cause(err)
@@ -110,12 +114,12 @@ func Cause(err error) error {
 
 // DisplayMessage retrives the display message
 func DisplayMessage(err error) string {
-	custom, ok := err.(customError)
-	if ok {
-		if custom.displayMessage != "" {
-			return custom.displayMessage
+	var customErr customError
+	if errors.As(err, &customErr) {
+		if customErr.displayMessage != "" {
+			return customErr.displayMessage
 		}
-		return string(custom.code)
+		return string(customErr.code)
 	}
 
 	return string(InternalError)

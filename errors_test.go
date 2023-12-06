@@ -139,4 +139,11 @@ var _ = Describe("Errors", func() {
 
 		Expect(fmt.Sprintf("%+v", errors.StackTrace(err))).To(ContainSubstring("/errors_test.go:"))
 	})
+
+	Describe("#Code", func() {
+		It("should return a wrapped error code", func() {
+			err := fmt.Errorf("testing: %w", errors.InvalidArgument.New("invalid argument"))
+			Expect(errors.Code(err)).To(Equal(errors.InvalidArgument))
+		})
+	})
 })
