@@ -10,12 +10,13 @@ import (
 type ErrorCode string
 
 const (
-	InternalError    ErrorCode = "Internal Error"
-	NotFound         ErrorCode = "Not Found"
-	InvalidArgument  ErrorCode = "Invalid Argument"
-	Unauthenticated  ErrorCode = "Unauthenticated"
-	PermissionDenied ErrorCode = "Permission Denied"
-	Unknown          ErrorCode = "Unknown"
+	InternalError        ErrorCode = "Internal Error"
+	NotFound             ErrorCode = "Not Found"
+	InvalidArgument      ErrorCode = "Invalid Argument"
+	Unauthenticated      ErrorCode = "Unauthenticated"
+	PermissionDenied     ErrorCode = "Permission Denied"
+	UnprocessableContent ErrorCode = "Unprocessable Content"
+	Unknown              ErrorCode = "Unknown"
 )
 
 type customError struct {
