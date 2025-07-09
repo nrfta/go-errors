@@ -72,6 +72,16 @@ var _ = Describe("Errors", func() {
 		Expect(fmt.Sprintf("%+v", errors.StackTrace(err))).To(ContainSubstring("/errors_test.go:"))
 	})
 
+	It("create an unprocessable content error", func() {
+		msg := "an error with a message"
+		err := errors.UnprocessableContent.New(msg)
+
+		Expect(errors.Code(err)).To(Equal(errors.UnprocessableContent))
+		Expect(err.Error()).To(Equal(msg))
+		Expect(errors.DisplayMessage(err)).To(Equal("Unprocessable Content"))
+		Expect(fmt.Sprintf("%+v", errors.StackTrace(err))).To(ContainSubstring("/errors_test.go:"))
+	})
+
 	It("creates an Unknown error", func() {
 		msg := "an error with a message"
 		err := errors.Unknown.New(msg)
