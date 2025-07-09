@@ -6,6 +6,12 @@ import (
 	"github.com/pkg/errors"
 )
 
+var (
+	Is     = errors.Is
+	As     = errors.As
+	Unwrap = errors.Unwrap
+)
+
 // ErrorCode holds the type of errors
 type ErrorCode string
 
