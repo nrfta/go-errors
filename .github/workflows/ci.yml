@@ -21,10 +21,10 @@ jobs:
       ENV: test
 
     steps:
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v4
 
       - name: Install Go
-        uses: actions/setup-go@v1
+        uses: actions/setup-go@v5
         with:
           go-version: ${{matrix.go-version}}
 
