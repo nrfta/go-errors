@@ -6,12 +6,6 @@ import (
 	"github.com/pkg/errors"
 )
 
-var (
-	Is     = errors.Is
-	As     = errors.As
-	Unwrap = errors.Unwrap
-)
-
 // ErrorCode holds the type of errors
 type ErrorCode string
 
@@ -37,7 +31,7 @@ func (code ErrorCode) New(msg string) error {
 }
 
 // Newf creates a new customError with formatted message
-func (code ErrorCode) Newf(msg string, args ...interface{}) error {
+func (code ErrorCode) Newf(msg string, args ...any) error {
 	return customError{code: code, originalError: fmt.Errorf(msg, args...)}
 }
 
@@ -47,7 +41,7 @@ func (code ErrorCode) Wrap(err error, msg string) error {
 }
 
 // Wrapf creates a new wrapped error with formatted message
-func (code ErrorCode) Wrapf(err error, msg string, args ...interface{}) error {
+func (code ErrorCode) Wrapf(err error, msg string, args ...any) error {
 	return customError{code: code, originalError: errors.Wrapf(err, msg, args...)}
 }
 
@@ -57,7 +51,7 @@ func New(msg string) error {
 }
 
 // Newf creates an InternalError error with formatted message
-func Newf(msg string, args ...interface{}) error {
+func Newf(msg string, args ...any) error {
 	return customError{
 		code:          InternalError,
 		originalError: errors.New(fmt.Sprintf(msg, args...)),
@@ -65,7 +59,7 @@ func Newf(msg string, args ...interface{}) error {
 }
 
 // Wrapf an error with format string
-func Wrapf(err error, msg string, args ...interface{}) error {
+func Wrapf(err error, msg string, args ...any) error {
 	wrappedError := errors.Wrapf(err, msg, args...)
 
 	var customErr customError
