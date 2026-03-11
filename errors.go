@@ -25,6 +25,10 @@ type customError struct {
 	displayMessage string
 }
 
+func (ce customError) Unwrap() error {
+	return ce.originalError
+}
+
 // New creates a new customError
 func (code ErrorCode) New(msg string) error {
 	return customError{code: code, originalError: errors.New(msg)}
