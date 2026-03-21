@@ -1,6 +1,7 @@
 package errors_test
 
 import (
+	stderrors "errors"
 	"fmt"
 	"io"
 
@@ -154,6 +155,26 @@ var _ = Describe("Errors", func() {
 		It("should return a wrapped error code", func() {
 			err := fmt.Errorf("testing: %w", errors.InvalidArgument.New("invalid argument"))
 			Expect(errors.Code(err)).To(Equal(errors.InvalidArgument))
+		})
+	})
+
+	Describe("#Unwrap", func() {
+		It("returns a non-nil inner error", func() {
+			err := errors.NotFound.New("not found")
+			Expect(stderrors.Unwrap(err)).NotTo(BeNil())
+		})
+
+		It("allows errors.Is to find a wrapped sentinel error", func() {
+			err := errors.NotFound.Wrap(io.EOF, "wrapped")
+			Expect(stderrors.Is(err, io.EOF)).To(BeTrue())
+		})
+
+		It("allows stdlib errors.Is to find the error when wrapped with fmt.Errorf", func() {
+			sentinel := stderrors.New("sentinel")
+			custom := errors.InternalError.Wrap(sentinel, "outer")
+			wrapped := fmt.Errorf("additional context: %w", custom)
+
+			Expect(stderrors.Is(wrapped, sentinel)).To(BeTrue())
 		})
 	})
 })
