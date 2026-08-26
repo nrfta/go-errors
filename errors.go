@@ -41,7 +41,7 @@ func (code ErrorCode) Newf(msg string, args ...any) error {
 
 // Wrap creates a new wrapped error
 func (code ErrorCode) Wrap(err error, msg string) error {
-	return code.Wrapf(err, msg)
+	return customError{code: code, originalError: errors.Wrap(err, msg)}
 }
 
 // Wrapf creates a new wrapped error with formatted message
@@ -64,8 +64,15 @@ func Newf(msg string, args ...any) error {
 
 // Wrapf an error with format string
 func Wrapf(err error, msg string, args ...any) error {
-	wrappedError := errors.Wrapf(err, msg, args...)
+	return wrapError(err, errors.Wrapf(err, msg, args...))
+}
 
+// Wrap an error with a string
+func Wrap(err error, msg string) error {
+	return wrapError(err, errors.Wrap(err, msg))
+}
+
+func wrapError(err error, wrappedError error) error {
 	var customErr customError
 	if errors.As(err, &customErr) {
 		return customError{
@@ -75,11 +82,6 @@ func Wrapf(err error, msg string, args ...any) error {
 	}
 
 	return customError{code: InternalError, originalError: wrappedError}
-}
-
-// Wrap an error with a string
-func Wrap(err error, msg string) error {
-	return Wrapf(err, msg)
 }
 
 // WithDisplayMessage returns a error containing a display message
